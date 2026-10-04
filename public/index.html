@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panorama</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌄</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <header class="top">
+    <a class="logo" href="/" id="logo">🌄 <span>Panorama</span></a>
+    <div class="top-actions">
+      <button class="chip" id="whoBtn" title="Changer de pseudo"></button>
+      <button class="btn primary" id="addBtn">＋ Partager</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="filter" id="filter" hidden>
+      <span>Photos de <b id="filterName"></b></span>
+      <button class="chip" id="clearFilter">Tout voir ✕</button>
+    </div>
+    <section class="grid" id="grid" aria-live="polite"></section>
+    <p class="empty" id="empty" hidden>Rien ici pour l'instant. Sois le premier à partager une photo !</p>
+  </main>
+
+  <!-- Pseudo -->
+  <dialog id="nameDlg">
+    <form method="dialog" id="nameForm">
+      <h2>Bienvenue sur Panorama 👋</h2>
+      <p>Choisis un pseudo. Pas de mot de passe, juste un nom pour signer tes photos.</p>
+      <input id="nameInput" maxlength="24" placeholder="Ton pseudo" autocomplete="nickname" required>
+      <button class="btn primary" type="submit">C'est parti</button>
+    </form>
+  </dialog>
+
+  <!-- Upload -->
+  <dialog id="upDlg">
+    <form id="upForm">
+      <h2>Partager une photo</h2>
+      <label class="drop" id="drop">
+        <input type="file" id="file" accept="image/jpeg,image/png,image/gif,image/webp" hidden>
+        <img id="preview" alt="" hidden>
+        <span id="dropHint">Glisse une image ici<br><small>ou clique pour parcourir (10 Mo max)</small></span>
+      </label>
+      <textarea id="caption" maxlength="280" rows="2" placeholder="Une légende ? (optionnel)"></textarea>
+      <div class="row">
+        <button class="btn" type="button" id="upCancel">Annuler</button>
+        <button class="btn primary" type="submit" id="upSubmit" disabled>Publier</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Lightbox -->
+  <dialog id="lightbox">
+    <button class="close" id="lbClose" aria-label="Fermer">✕</button>
+    <div class="lb">
+      <div class="lb-img"><img id="lbImg" alt=""><span class="burst" id="lbBurst">❤</span></div>
+      <aside>
+        <div class="lb-head">
+          <button class="author" id="lbAuthor"></button>
+          <time id="lbTime"></time>
+        </div>
+        <p id="lbCaption" class="cap"></p>
+        <ul id="lbComments" class="comments"></ul>
+        <div class="lb-foot">
+          <button class="like" id="lbLike" aria-label="J'aime">♡</button>
+          <span id="lbLikes"></span>
+          <button class="chip danger" id="lbDelete" hidden>Supprimer</button>
+        </div>
+        <form id="cForm" class="cform">
+          <input id="cInput" maxlength="500" placeholder="Ajouter un commentaire…" required>
+          <button class="btn primary" type="submit">Envoyer</button>
+        </form>
+      </aside>
+    </div>
+  </dialog>
+
+  <div id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
